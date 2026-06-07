@@ -1,14 +1,17 @@
 from collections import defaultdict
 #cmove = countermove, in another direction
+
 def get_new_state(lock, state, move, cmove, movement): 
     
     new_state = state.copy()
     if movement == "L": 
+        new_state[lock] += 1
         for i in move[lock]: 
             new_state[i] += 1
         for i in cmove[lock]: 
             new_state[i] -= 1
     else: 
+        new_state[lock] -= 1
         for i in move[lock]: 
             new_state[i] -= 1
         for i in cmove[lock]: 
@@ -32,21 +35,23 @@ def crack(
         print(f"Found with combination: {combination}")
         return
     
+    print(f"Current state: {state}\n")
+
     if any(state[i] > 3 or state[i] < -3 for i in range(6)):
         # prune branch 
-        print(f'pruning with state: {state}')
+        # print(f'pruning with state: {state}')
         return
 
     if history["-".join(map(str, state))]:
         # prune branch 
-        print(f'state already visited: {state}')
+        # print(f'state already visited: {state}')
         return
     
     history["-".join(map(str, state))] = True
 
     # FOR TESTING 
     if depth > 100: 
-        print(f'depth exceeded with combination: {combination}')
+        # print(f'depth exceeded with combination: {combination}')
         return 
 
     # later change to 5 options as well. 
