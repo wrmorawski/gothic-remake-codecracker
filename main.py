@@ -3,6 +3,7 @@ from collections import defaultdict
 
 def get_new_state(lock, state, move, cmove, movement): 
     
+    print(f"Movement: {movement}{lock}")
     new_state = state.copy()
     if movement == "L": 
         new_state[lock] += 1
@@ -50,7 +51,7 @@ def crack(
     history["-".join(map(str, state))] = True
 
     # FOR TESTING 
-    if depth > 100: 
+    if depth > 3: 
         # print(f'depth exceeded with combination: {combination}')
         return 
 
